@@ -154,18 +154,18 @@ if __name__ == "__main__":
     # bankroll = 100
     # playround()
     # print(bankroll)
-
-    bankrollist = []
-    for i in range(10):
-        print(i)
-        for i in range(10000):
-            bankroll = 100
-            for k in range(100):
-                playround()
-            bankrollist.append(bankroll)
-            random.shuffle(deck)
-    print("after 100000 sets of 100 games you ended op on avg with", np.mean(bankrollist), "euro")
-    print("with stdev of", sqrt(np.var(bankrollist)))
+    for j in range(3):
+        bankrollist = []
+        for i in range(10):
+            print(i)
+            for k in range(10000):
+                bankroll = 100
+                for p in range(100):
+                    playround()
+                bankrollist.append(bankroll)
+                random.shuffle(deck)
+        print("after 100000 sets of 100 games you ended op on avg with", np.mean(bankrollist), "euro")
+        print("with stdev of", sqrt(np.var(bankrollist)))
 
     # result = []
 
