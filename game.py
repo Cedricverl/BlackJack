@@ -163,6 +163,7 @@ if __name__ == "__main__":
             for k in range(100):
                 playround()
             bankrollist.append(bankroll)
+            random.shuffle(deck)
     print("after 100000 sets of 100 games you ended op on avg with", np.mean(bankrollist), "euro")
     print("with stdev of", sqrt(np.var(bankrollist)))
 
