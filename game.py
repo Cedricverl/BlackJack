@@ -103,22 +103,22 @@ def playround():
     bankroll -= bet
     dealercards = []
     playercards = []
-    print("your first and second card is:")
+    # print("your first and second card is:")
     playercards.append(deck.pop())
     playercards.append(deck.pop())
     starthand = Hand(playercards, bet)
-    print(starthand, starthand.getSum())
-    print("dealer card is:")
+    # print(starthand, starthand.getSum())
+    # print("dealer card is:")
     dealercards.append(deck.pop())
-    print(dealercards, sum([card.bjValue() for card in dealercards]))
+    # print(dealercards, sum([card.bjValue() for card in dealercards]))
     playedhands = playhand(starthand, dealercards)
-    print("playedhand:", playedhands, playedhands[0].getSum())
+    # print("playedhand:", playedhands, playedhands[0].getSum())
 
 
     while get_cards_sum(dealercards) < 17: #Dealer keeps hitting until 17 or higher
-        print("dealer takes another card:")
+        # print("dealer takes another card:")
         dealercards.append(deck.pop())
-        print(dealercards, get_cards_sum(dealercards))
+        # print(dealercards, get_cards_sum(dealercards))
     else:
         for hand in playedhands:
             if hand.isSurrendered():
@@ -146,23 +146,24 @@ def playround():
                 deck.insert(0, card)
     for card in dealercards:
         deck.insert(0, card)
-    print("##############################################")
+    # print("##############################################")
 
 
 if __name__ == "__main__":
-    bankroll = 100
-    playround()
-    print(bankroll)
-    # for i in range(5):
-    #     bankrollist = []
-    #     for i in range(100000):
-    #         bankroll = 100
-    #         for k in range(100):
-    #             playround()
-    #
-    #         bankrollist.append(bankroll)
-    #     print("after 100000 sets of 100 games you ended op on avg with", np.mean(bankrollist), "euro")
-    #     print("with stdev of", sqrt(np.var(bankrollist)))
+    # bankroll = 100
+    # playround()
+    # print(bankroll)
+    bankrollist = []
+
+    for i in range(10):
+        print(i)
+        for i in range(1000):
+            bankroll = 100
+            for k in range(100):
+                playround()
+            bankrollist.append(bankroll)
+    print("after 100000 sets of 100 games you ended op on avg with", np.mean(bankrollist), "euro")
+    print("with stdev of", sqrt(np.var(bankrollist)))
 
     # result = []
 
