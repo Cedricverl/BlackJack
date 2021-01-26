@@ -1,5 +1,6 @@
+from collections import Counter
 class Hand:
-    def __init__(self, cards, bet, isdouble = False, surrender = False):
+    def __init__(self, cards, bet, isdouble=False, surrender=False):
         self.cards = cards
         self.bet = bet
         self.isdouble = isdouble
@@ -49,14 +50,16 @@ class Hand:
     def takeCard(self):
         return self.cards.pop()
 
-    def __repr__(self):
-        return "%s {%s}" % (self.cards, self.bet)
-
     def __eq__(self, other):
         if len(self.getCards()) != len(other.getCards()):
             return False
-        return all([card in other.getCards() for card in self.getCards()])
+        return equal_ignore_order(self.getCards(), other.getCards())
 
+    # def __ne__(self, other):
+    #     return not self.__eq__(other)
+
+    def __repr__(self):
+        return "%s {%s}" % (self.cards, self.bet)
 
     # def __copy__(self):
     #     return Hand(self.cards.copy(), self.bet, self.isdouble)
@@ -65,4 +68,12 @@ class Hand:
     #     return Hand(self.cards.copy(), self.bet, self.isdouble)
 
 
-
+def equal_ignore_order(a, b):
+    """ Use only when elements are neither hashable nor sortable! """
+    unmatched = list(b)
+    for element in a:
+        try:
+            unmatched.remove(element)
+        except ValueError:
+            return False
+    return not unmatched
