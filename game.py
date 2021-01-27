@@ -34,7 +34,7 @@ def getaction(hand, dealervalue):
         if (1 < othercard < 7 and 4 < dealervalue < 7) or (3 < othercard < 7 and dealervalue == 4) or (
                 othercard == 6 and dealervalue == 3):
             if len(hand.getCards()) == 2:
-                return "double"  # if allowed, otherwise hit
+                return "hit"  # if allowed, otherwise hit
             else:
                 return "hit"
         if (othercard == 8 and dealervalue == 6) or (othercard == 7 and 1 < dealervalue < 7):
@@ -174,12 +174,10 @@ if __name__ == "__main__":
         print("with stdev of", sqrt(np.var(bankrollist)))
 
     # result = []
-    # bankroll = 100
-    # for i in range(1000):
+    # for i in range(100000):
+    #     bankroll = 100
     #     playround()
     #     random.shuffle(deck)
-    # # print(bankroll)
-    # # result.append(bankroll)
-    # # print("mean:",np.mean(result))
-    # # print("stdev:",sqrt(np.var(result)))
-    # print(bankroll)
+    #     result.append(bankroll)
+    # print("mean:", np.mean(result))
+    # print("stdev:", sqrt(np.var(result)))
