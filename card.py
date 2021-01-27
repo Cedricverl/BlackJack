@@ -28,7 +28,7 @@ class Card:
 
 # deck = [Card(rank, suit) for rank in ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"] for suit in ["d","c","h","s"]]
 def get_deck():
-    return [Card(rank) for rank in range(1, 14) for _ in range(3)]
+    return [Card(rank) for rank in range(1, 14) for _ in range(4)]
 
 
 def get_cards_sum(cards):

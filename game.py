@@ -7,7 +7,7 @@ import numpy as np
 
 deck = get_deck() * 8
 random.shuffle(deck)
-donedeck = []
+# donedeck = []
 # deck = [Card(5), Card(11), Card(2), Card(3), Card(10), Card(10), Card(10), Card(9), Card(7), Card(5), Card(5)]
 # print("deck: ", deck)
 bet = 5
@@ -136,25 +136,26 @@ def playround():
 
 
 if __name__ == "__main__":
-    while 1:
-        bankroll = 100
-        playround()
-        random.shuffle(deck)
-        print(bankroll)
-        input()
+    # while 1:
+    #     bankroll = 100
+    #     playround()
+    #     random.shuffle(deck)
+    #     if bankroll > 100:
+    #         print(bankroll)
+    #         input()
 
-    # for j in range(3):
-    #     bankrollist = []
-    #     for i in range(10):
-    #         print(i)
-    #         for k in range(10000):
-    #             bankroll = 100
-    #             for p in range(100):
-    #                 playround()
-    #             bankrollist.append(bankroll)
-    #             random.shuffle(deck)
-    #     print("after 100000 sets of 100 games you ended op on avg with", np.mean(bankrollist), "euro")
-    #     print("with stdev of", sqrt(np.var(bankrollist)))
+    for j in range(3):
+        bankrollist = []
+        for i in range(10):
+            print(i)
+            for k in range(10000):
+                bankroll = 100
+                for p in range(100):
+                    playround()
+                bankrollist.append(bankroll)
+                random.shuffle(deck)
+        print("after 100000 sets of 100 games you ended op on avg with", np.mean(bankrollist), "euro")
+        print("with stdev of", sqrt(np.var(bankrollist)))
 
     # result = []
 
