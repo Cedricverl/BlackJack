@@ -1,5 +1,5 @@
 # from collections import Counter
-from card import get_cards_sum
+from card import Card, get_cards_sum
 class Hand:
     def __init__(self, cards, bet=0, isdouble=False, surrender=False):
         self.cards = cards
@@ -44,7 +44,18 @@ class Hand:
             return False
         return (self.getCards()[0] == other.getCards()[0] and self.getCards()[1] == other.getCards()[1]) or (self.getCards()[0] == other.getCards()[1] and self.getCards()[1] == other.getCards()[0])
 
+    def getAmountOfAces(self):  # delete this function and its tests
+        return len([True for card in self.getCards() if card == Card(1)])
 
+    def containsAce(self):
+        return Card(1) in self.getCards()
+
+    def isSoftTotal(self):
+        lowsum = sum([card.bjValue() for card in self.getCards()])
+        return self.containsAce() and lowsum + 10 <= 21
+
+    def softSum(self):
+        return get_cards_sum([card for card in self.getCards() if card != Card(0)])
     # def __ne__(self, other):
     #     return not self.__eq__(other)
 

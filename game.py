@@ -8,8 +8,8 @@ import numpy as np
 deck = get_deck() * 8
 random.shuffle(deck)
 # donedeck = []
-# deck = [Card(5), Card(11), Card(2), Card(3), Card(10), Card(4), Card(7), Card(1), Card(10), Card(10), Card(9)]
-print("deck: ", deck)
+# deck = [Card(5), Card(11), Card(2), Card(3), Card(10), Card(1), Card(9), Card(5), Card(6), Card(4), Card(2)]
+# print("deck: ", deck)
 bet = 5
 
 
@@ -30,21 +30,31 @@ def getaction(hand, dealervalue):
             pass
             # print("Don't split!")
 
-    if Card(1) in hand.getCards() and len(hand.getCards()) == 2:  # soft totals
-        othercard = [card for card in hand.getCards() if card.bjValue() != 1][0].bjValue()
+    if hand.isSoftTotal():  # soft totals
+        othercard = hand.softSum()
         if (othercard >= 9) or (othercard == 8 and dealervalue != 6) or (othercard == 7 and 6 < dealervalue < 9):
             return "stand"
         if (1 < othercard < 7 and 4 < dealervalue < 7) or (3 < othercard < 7 and dealervalue == 4) or (
                 othercard == 6 and dealervalue == 3):
-            return "double"  # if allowed, otherwise hit
+            if len(hand.getCards() == 2):
+                return "double"  # if allowed, otherwise hit
+            else:
+                return "hit"
         if (othercard == 8 and dealervalue == 6) or (othercard == 7 and 1 < dealervalue < 7):
-            return "double"  # if allowed, otherwise stand
+            if len(hand.getCards() == 2):
+                return "double"  # if allowed, otherwise stand
+            else:
+                return "hit"
+
         else:
             return "hit"
 
     if (hand.getSum() == 10 and 1 < dealervalue <= 9) or hand.getSum() == 11 or (
             hand.getSum() == 9 and 2 < dealervalue < 7):  # hard totals
-        return "double"
+        if len(hand.getCards()) == 2:
+            return "double"
+        else:
+            return "hit"
     elif (hand.getSum() >= 13 and 1 < dealervalue < 7) or (hand.getSum() == 12 and 3 < dealervalue < 7) or (
             hand.getSum() >= 17):
         return "stand"
@@ -163,7 +173,6 @@ if __name__ == "__main__":
         print("with stdev of", sqrt(np.var(bankrollist)))
 
     # result = []
-
     # bankroll = 100
     # for i in range(1000):
     #     playround()
