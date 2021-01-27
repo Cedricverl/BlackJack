@@ -143,8 +143,9 @@ if __name__ == "__main__":
     #     if bankroll > 100:
     #         print(bankroll)
     #         input()
-    print("starting 100 000 sets of 100 games...")
+
     for j in range(3):
+        print("starting 100 000 sets of 100 games...")
         bankrollist = []
         for i in range(10):
             print(i)
