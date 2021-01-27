@@ -5,11 +5,11 @@ from hand import *
 from math import sqrt
 import numpy as np
 
-# deck = get_deck() * 8
-# random.shuffle(deck)
-donedeck = []
-deck = [Card(5), Card(11), Card(2), Card(3), Card(10), Card(4), Card(10), Card(1), Card(1), Card(10), Card(1)]
-print("deck: ", deck)
+deck = get_deck() * 8
+random.shuffle(deck)
+# donedeck = []
+# deck = [Card(5), Card(11), Card(2), Card(3), Card(10), Card(4), Card(10), Card(1), Card(1), Card(10), Card(1)]
+# print("deck: ", deck)
 bet = 5
 
 
