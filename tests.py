@@ -30,3 +30,9 @@ h0 = [Card(1), Card(1), Card(10)]
 assert get_cards_sum(h0) == 12
 h4 = [Card(1), Card(1), Card(1)]
 assert get_cards_sum(h4) == 13
+h5 = [Card(1), Card(1), Card(1), Card(1), Card(6)]
+assert get_cards_sum(h5) == 20
+h5 = [Card(1), Card(9), Card(9)]
+assert get_cards_sum(h5) == 19
+
+exit()

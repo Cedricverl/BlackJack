@@ -1,4 +1,5 @@
 # from collections import Counter
+from card import get_cards_sum
 class Hand:
     def __init__(self, cards, bet=0, isdouble=False, surrender=False):
         self.cards = cards
@@ -26,19 +27,7 @@ class Hand:
         return [Hand([self.cards[0]], self.bet), Hand([self.cards[1]], self.bet)]
 
     def getSum(self):
-        sum = 0
-        aces = 0
-        for card in self.cards:
-            if card.bjValue() != 1:
-                sum += card.bjValue()
-            else:
-                aces += 1
-        for i in range(aces):
-            if sum + 11 > 21:
-                sum += 1
-            else:
-                sum += 11
-        return sum
+        return get_cards_sum(self.getCards())
         # return sum([card.bjValue() for card in self.cards])
 
     def getCards(self):

@@ -39,9 +39,12 @@ def get_cards_sum(cards):
             sum += card.bjValue()
         else:
             aces += 1
-    for i in range(aces):
-        if sum + 11 + 1*(1-i) > 21:
-            sum += 1
-        else:
-            sum += 11
-    return sum
+    if sum == 10 and aces == 1:
+        return 21
+    else:
+        for i in range(aces):
+            if sum + 11 + 1*(1-i) > 21:
+                sum += 1
+            else:
+                sum += 11
+        return sum

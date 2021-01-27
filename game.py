@@ -8,8 +8,8 @@ import numpy as np
 deck = get_deck() * 8
 random.shuffle(deck)
 # donedeck = []
-# deck = [Card(5), Card(11), Card(2), Card(3), Card(10), Card(4), Card(10), Card(1), Card(1), Card(10), Card(1)]
-# print("deck: ", deck)
+# deck = [Card(5), Card(11), Card(2), Card(3), Card(10), Card(4), Card(7), Card(1), Card(10), Card(10), Card(9)]
+print("deck: ", deck)
 bet = 5
 
 
@@ -143,6 +143,10 @@ if __name__ == "__main__":
     #     if bankroll > 100:
     #         print(bankroll)
     #         input()
+
+    # bankroll = 100
+    # playround()
+    # print(bankroll)
 
     for j in range(3):
         print("starting 100 000 sets of 100 games...")
