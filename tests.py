@@ -40,4 +40,7 @@ assert get_cards_sum(h5) == 20
 h5 = [Card(1), Card(9), Card(9)]
 assert get_cards_sum(h5) == 19
 
+assert(Card(1) == Card(1))
+assert(Card(1) != Card(6))
+assert(Card(6) != Card(1))
 exit()

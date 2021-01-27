@@ -21,10 +21,7 @@ class Card:
         return "(%s)" % (self.bjValue())
 
     def __eq__(self, other):
-        if self.bjValue() == other.bjValue():
-            return True
-        return False
-
+        return self.bjValue() == other.bjValue()
 
 # deck = [Card(rank, suit) for rank in ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"] for suit in ["d","c","h","s"]]
 def get_deck():

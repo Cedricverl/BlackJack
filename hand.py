@@ -55,7 +55,7 @@ class Hand:
         return self.containsAce() and lowsum + 10 <= 21
 
     def softSum(self):
-        return get_cards_sum([card for card in self.getCards() if card != Card(0)])
+        return sum([card.bjValue() for card in self.getCards() if card != Card(1)])
     # def __ne__(self, other):
     #     return not self.__eq__(other)
 

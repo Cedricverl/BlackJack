@@ -8,7 +8,7 @@ import numpy as np
 deck = get_deck() * 8
 random.shuffle(deck)
 # donedeck = []
-# deck = [Card(5), Card(11), Card(2), Card(3), Card(10), Card(1), Card(9), Card(5), Card(6), Card(4), Card(2)]
+# deck = [Card(3), Card(3), Card(3), Card(3), Card(3), Card(3), Card(7), Card(4), Card(5), Card(2), Card(6), Card(3), Card(4), Card(6), Card(3), Card(3), Card(1), Card(1), Card(4), Card(1), Card(1)]
 # print("deck: ", deck)
 bet = 5
 
@@ -33,12 +33,12 @@ def getaction(hand, dealervalue):
             return "stand"
         if (1 < othercard < 7 and 4 < dealervalue < 7) or (3 < othercard < 7 and dealervalue == 4) or (
                 othercard == 6 and dealervalue == 3):
-            if len(hand.getCards() == 2):
+            if len(hand.getCards()) == 2:
                 return "double"  # if allowed, otherwise hit
             else:
                 return "hit"
         if (othercard == 8 and dealervalue == 6) or (othercard == 7 and 1 < dealervalue < 7):
-            if len(hand.getCards() == 2):
+            if len(hand.getCards()) == 2:
                 return "double"  # if allowed, otherwise stand
             else:
                 return "stand"
@@ -60,7 +60,7 @@ def getaction(hand, dealervalue):
 
 def merge(a, b):
     c = a.copy()
-    c.append(b[0])
+    c.extend(b)
     return c
 
 
@@ -69,11 +69,15 @@ def playhand(hand, dealercards):
     stand = False
     while not stand and hand.getSum() <= 21:
         action = getaction(hand, dealercards[0].bjValue())
+        # print(hand)
         if action == "hit":
+            # print("hit")
             hand.addCard(deck.pop())
         elif action == "stand":
+            # print("stand")
             return [hand]
         elif action == "double":
+            # print("double")
             hand.addCard(deck.pop())
             hand.setDouble()
             bankroll -= bet
@@ -96,6 +100,7 @@ def playhand(hand, dealercards):
             return [hand]
         if hand.getSum() >= 21:
             return [hand]
+    return [hand]
 
 
 def playround():
