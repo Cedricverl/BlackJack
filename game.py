@@ -1,6 +1,6 @@
 from card import *
-import random
 from hand import *
+import sys, os, random
 # random.seed(123)
 from math import sqrt
 import numpy as np
@@ -8,9 +8,10 @@ import numpy as np
 deck = get_deck() * 8
 random.shuffle(deck)
 donedeck = []
-# deck = [Card(3), Card(3), Card(3), Card(3), Card(3), Card(3), Card(7), Card(4), Card(5), Card(2), Card(6), Card(3), Card(4), Card(6), Card(3), Card(3), Card(1), Card(1), Card(4), Card(1), Card(1)]
+# deck = [Card(6), Card(3), Card(4), Card(6), Card(3), Card(3), Card(1), Card(1), Card(4), Card(1), Card(1)]
 # print("deck: ", deck)
 bet = 5
+DAS = True  # Double After Split (now allowed in every casino)
 
 
 def getaction(hand, dealervalue):
@@ -25,7 +26,8 @@ def getaction(hand, dealervalue):
             return "split"
         elif (cardvalue == 6 and dealervalue == 2) or (1 < cardvalue < 4 and 1 < dealervalue < 4) or (
                 cardvalue == 4 and 4 < dealervalue < 7):
-            return "split"  # if DAS is offered, otherwise don't split
+            if DAS:
+                return "split"  # if DAS is offered, otherwise don't split
 
     if hand.isSoftTotal():  # soft totals
         othercard = hand.softSum()
@@ -103,21 +105,21 @@ def playround():
     bankroll -= bet
     dealercards = []
     playercards = []
-    # print("your first and second card is:")
+    print("your first and second card is:")
     playercards.append(deck.pop())
     playercards.append(deck.pop())
     starthand = Hand(playercards, bet)
-    # print(starthand, starthand.getSum())
-    # print("dealer card is:")
+    print(starthand, starthand.getSum())
+    print("dealer card is:")
     dealercards.append(deck.pop())
-    # print(dealercards, sum([card.bjValue() for card in dealercards]))
+    print(dealercards, sum([card.bjValue() for card in dealercards]))
     playedhands = playhand(starthand, dealercards)
-    # print("playedhand:", playedhands, playedhands[0].getSum())
+    print("playedhand:", playedhands, playedhands[0].getSum())
 
     while get_cards_sum(dealercards) < 17:  # Dealer keeps hitting until 17 or higher
-        # print("dealer takes another card:")
+        print("dealer takes another card:")
         dealercards.append(deck.pop())
-        # print(dealercards, get_cards_sum(dealercards))
+        print(dealercards, get_cards_sum(dealercards))
     else:
         for hand in playedhands:
             if hand.isSurrendered():
@@ -138,10 +140,18 @@ def playround():
                 deck.insert(0, card)
     for card in dealercards:
         deck.insert(0, card)
-    # print("##############################################")
+    print("##############################################")
 
 
 if __name__ == "__main__":
+    # Play a normal game
+    bankroll = 100
+    # sys.stdout = open(os.devnull, 'w')  # block printing statements
+    playround()
+    # sys.stdout = sys.__stdout__  # Enable printing statements
+    print(bankroll)
+
+    # # Continiously play games with every key pressed
     # while 1:
     #     bankroll = 100
     #     playround()
@@ -150,10 +160,7 @@ if __name__ == "__main__":
     #         print(bankroll)
     #         input()
 
-    # bankroll = 100
-    # playround()
-    # print(bankroll)
-
+    # # For benchmarking on more powerful machine
     # for j in range(3):
     #     print("starting 100 000 sets of 100 games...")
     #     bankrollist = []
@@ -168,13 +175,13 @@ if __name__ == "__main__":
     #     print("after 100000 sets of 100 games you ended op on avg with", np.mean(bankrollist), "euro")
     #     print("with stdev of", sqrt(np.var(bankrollist)))
 
-    result = []
-    for k in range(100):
-        print(k)
-        for i in range(50000):
-            bankroll = 100
-            playround()
-            random.shuffle(deck)
-            result.append(bankroll)
-    print("mean:", np.mean(result))
-    print("stdev:", sqrt(np.var(result)))
+    # result = []
+    # for k in range(100):
+    #     print(k)
+    #     for i in range(50000):
+    #         bankroll = 100
+    #         playround()
+    #         random.shuffle(deck)
+    #         result.append(bankroll)
+    # print("mean:", np.mean(result))
+    # print("stdev:", sqrt(np.var(result)))
