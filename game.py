@@ -171,7 +171,7 @@ if __name__ == "__main__":
     result = []
     for k in range(100):
         print(k)
-        for i in range(5000000):
+        for i in range(50000):
             bankroll = 100
             playround()
             random.shuffle(deck)
