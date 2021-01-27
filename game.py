@@ -26,9 +26,6 @@ def getaction(hand, dealervalue):
         elif (cardvalue == 6 and dealervalue == 2) or (1 < cardvalue < 4 and 1 < dealervalue < 4) or (
                 cardvalue == 4 and 4 < dealervalue < 7):
             return "split"  # if DAS is offered, otherwise don't split
-        else:
-            pass
-            # print("Don't split!")
 
     if hand.isSoftTotal():  # soft totals
         othercard = hand.softSum()
@@ -44,8 +41,7 @@ def getaction(hand, dealervalue):
             if len(hand.getCards() == 2):
                 return "double"  # if allowed, otherwise stand
             else:
-                return "hit"
-
+                return "stand"
         else:
             return "hit"
 
