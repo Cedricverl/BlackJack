@@ -40,7 +40,7 @@ def get_cards_sum(cards):
         else:
             aces += 1
     for i in range(aces):
-        if sum + 11 > 21:
+        if sum + 11 + 1*(1-i) > 21:
             sum += 1
         else:
             sum += 11

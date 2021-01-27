@@ -1,6 +1,6 @@
-from collections import Counter
+# from collections import Counter
 class Hand:
-    def __init__(self, cards, bet, isdouble=False, surrender=False):
+    def __init__(self, cards, bet=0, isdouble=False, surrender=False):
         self.cards = cards
         self.bet = bet
         self.isdouble = isdouble
@@ -50,10 +50,11 @@ class Hand:
     def takeCard(self):
         return self.cards.pop()
 
-    def __eq__(self, other):
-        if len(self.getCards()) != len(other.getCards()):
+    def __eq__(self, other):  # only used to check for a blackjack hand
+        if not(len(self.getCards()) == len(other.getCards()) == 2):
             return False
-        return equal_ignore_order(self.getCards(), other.getCards())
+        return (self.getCards()[0] == other.getCards()[0] and self.getCards()[1] == other.getCards()[1]) or (self.getCards()[0] == other.getCards()[1] and self.getCards()[1] == other.getCards()[0])
+
 
     # def __ne__(self, other):
     #     return not self.__eq__(other)
@@ -68,12 +69,13 @@ class Hand:
     #     return Hand(self.cards.copy(), self.bet, self.isdouble)
 
 
-def equal_ignore_order(a, b):
-    """ Use only when elements are neither hashable nor sortable! """
-    unmatched = list(b)
-    for element in a:
-        try:
-            unmatched.remove(element)
-        except ValueError:
-            return False
-    return not unmatched
+# def equal_ignore_order(a, b):
+#     """ Use only when elements are neither hashable nor sortable! """
+#     unmatched = list(b)
+#     for element in a:
+#         try:
+#             unmatched.remove(element)
+#         except ValueError:
+#             return False
+#     return not unmatched
+

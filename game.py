@@ -1,15 +1,15 @@
 from card import *
 import random
-from hand import Hand
+from hand import *
 # random.seed(123)
 from math import sqrt
 import numpy as np
 
-deck = get_deck() * 8
-random.shuffle(deck)
-# donedeck = []
-# deck = [Card(5), Card(11), Card(2), Card(3), Card(10), Card(10), Card(10), Card(9), Card(7), Card(5), Card(5)]
-# print("deck: ", deck)
+# deck = get_deck() * 8
+# random.shuffle(deck)
+donedeck = []
+deck = [Card(5), Card(11), Card(2), Card(3), Card(10), Card(4), Card(10), Card(1), Card(1), Card(10), Card(1)]
+print("deck: ", deck)
 bet = 5
 
 
@@ -118,7 +118,7 @@ def playround():
                 bankroll += 0.5 * hand.getBet()
             elif hand.getSum() > 21:
                 pass
-            elif hand == Hand([Card(1), Card(10)], 0) and get_cards_sum(dealercards) != 21:  # blackajack!
+            elif hand == Hand([Card(1), Card(10)]) and get_cards_sum(dealercards) != 21:  # blackajack!
                 bankroll += (1 + 1.5) * hand.getBet()
             elif get_cards_sum(dealercards) > 21:
                 bankroll += (1 + 1) * hand.getBet()
