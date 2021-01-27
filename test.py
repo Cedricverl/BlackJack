@@ -1,3 +1,6 @@
+"""
+    For testing purposes and debugging
+"""
 from game import *
 
 deck = [Card(4), Card(5), Card(2), Card(6), Card(3), Card(4), Card(6), Card(3), Card(3), Card(1), Card(1), Card(4), Card(1), Card(1)]

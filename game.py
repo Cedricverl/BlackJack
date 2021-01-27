@@ -109,17 +109,17 @@ def playround():
     playercards.append(deck.pop())
     playercards.append(deck.pop())
     starthand = Hand(playercards, bet)
-    print(starthand, starthand.getSum())
+    print(starthand)
     print("dealer card is:")
     dealercards.append(deck.pop())
-    print(dealercards, sum([card.bjValue() for card in dealercards]))
+    print(dealercards)
     playedhands = playhand(starthand, dealercards)
-    print("playedhand:", playedhands, playedhands[0].getSum())
+    print("playedhand:", playedhands)
 
     while get_cards_sum(dealercards) < 17:  # Dealer keeps hitting until 17 or higher
         print("dealer takes another card:")
         dealercards.append(deck.pop())
-        print(dealercards, get_cards_sum(dealercards))
+        print(dealercards)
     else:
         for hand in playedhands:
             if hand.isSurrendered():
@@ -132,7 +132,7 @@ def playround():
                 bankroll += (1 + 1) * hand.getBet()
             elif hand.getSum() == get_cards_sum(dealercards):
                 bankroll += hand.getBet()
-            elif hand.getSum() > get_cards_sum(dealercards):  # hmmm
+            elif hand.getSum() > get_cards_sum(dealercards):
                 bankroll += (1 + 1) * hand.getBet()
             else:
                 pass

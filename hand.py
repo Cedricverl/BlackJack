@@ -1,5 +1,8 @@
-# from collections import Counter
 from card import Card, get_cards_sum
+
+"""
+    Implementation of playing hand at Blackjack table. Initially consists of 2 cards and a bet.
+"""
 class Hand:
     def __init__(self, cards, bet=0, isdouble=False, surrender=False):
         self.cards = cards
@@ -28,7 +31,6 @@ class Hand:
 
     def getSum(self):
         return get_cards_sum(self.getCards())
-        # return sum([card.bjValue() for card in self.cards])
 
     def getCards(self):
         return self.cards
@@ -44,8 +46,8 @@ class Hand:
             return False
         return (self.getCards()[0] == other.getCards()[0] and self.getCards()[1] == other.getCards()[1]) or (self.getCards()[0] == other.getCards()[1] and self.getCards()[1] == other.getCards()[0])
 
-    def getAmountOfAces(self):  # delete this function and its tests
-        return len([True for card in self.getCards() if card == Card(1)])
+    # def getAmountOfAces(self):  # delete this function and its tests
+    #     return len([True for card in self.getCards() if card == Card(1)])
 
     def containsAce(self):
         return Card(1) in self.getCards()
@@ -56,26 +58,6 @@ class Hand:
 
     def softSum(self):
         return sum([card.bjValue() for card in self.getCards() if card != Card(1)])
-    # def __ne__(self, other):
-    #     return not self.__eq__(other)
 
     def __repr__(self):
-        return "%s {%s}" % (self.cards, self.bet)
-
-    # def __copy__(self):
-    #     return Hand(self.cards.copy(), self.bet, self.isdouble)
-    #
-    # def __deepcopy__(self):
-    #     return Hand(self.cards.copy(), self.bet, self.isdouble)
-
-
-# def equal_ignore_order(a, b):
-#     """ Use only when elements are neither hashable nor sortable! """
-#     unmatched = list(b)
-#     for element in a:
-#         try:
-#             unmatched.remove(element)
-#         except ValueError:
-#             return False
-#     return not unmatched
-
+        return "%s(%s){€%s}" % (self.cards, self.getSum(), self.bet)

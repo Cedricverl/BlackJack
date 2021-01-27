@@ -1,3 +1,9 @@
+"""
+    Implementation for playing cards. Blackjack only cares about the rank and not the suit of a card.
+    Ace represents a 1 or 11
+    Numbers represent their corresponding value
+    Jack, Queen, King represent 10
+"""
 class Card:
     def __init__(self, rank):
         self.ranks = [None, "Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"]
@@ -23,10 +29,8 @@ class Card:
     def __eq__(self, other):
         return self.bjValue() == other.bjValue()
 
-# deck = [Card(rank, suit) for rank in ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"] for suit in ["d","c","h","s"]]
 def get_deck():
     return [Card(rank) for rank in range(1, 14) for _ in range(4)]
-
 
 def get_cards_sum(cards):
     sum = 0
