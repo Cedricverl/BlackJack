@@ -3,6 +3,8 @@ from card import Card, get_cards_sum
 """
     Implementation of playing hand at Blackjack table. Initially consists of 2 cards and a bet.
 """
+
+
 class Hand:
     def __init__(self, cards, bet=0, isdouble=False, surrender=False):
         self.cards = cards
@@ -12,7 +14,7 @@ class Hand:
 
     def setDouble(self):
         self.isdouble = True
-        self.bet = self.bet*2
+        self.bet = self.bet * 2
 
     def isSurrendered(self):
         return self.surrendered
@@ -42,12 +44,10 @@ class Hand:
         return self.cards.pop()
 
     def __eq__(self, other):  # only used to check for a blackjack hand
-        if not(len(self.getCards()) == len(other.getCards()) == 2):
+        if not (len(self.getCards()) == len(other.getCards()) == 2):
             return False
-        return (self.getCards()[0] == other.getCards()[0] and self.getCards()[1] == other.getCards()[1]) or (self.getCards()[0] == other.getCards()[1] and self.getCards()[1] == other.getCards()[0])
-
-    # def getAmountOfAces(self):  # delete this function and its tests
-    #     return len([True for card in self.getCards() if card == Card(1)])
+        return (self.getCards()[0] == other.getCards()[0] and self.getCards()[1] == other.getCards()[1]) or (
+                    self.getCards()[0] == other.getCards()[1] and self.getCards()[1] == other.getCards()[0])
 
     def containsAce(self):
         return Card(1) in self.getCards()
