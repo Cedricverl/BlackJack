@@ -164,14 +164,18 @@ class Game:
 
 
 if __name__ == "__main__":
+    print("Starting game...")
     bankrollresult = []
-    for i in range(10000000):  # Play 10 000 shoes
-        game = Game(100, 5, True)
-        while len(game.deck) > 15:
-            game.playround()
-        bankrollresult.append(game.bankroll)
-        # print(game.bankroll)
+    for i in range(100):
+        print(i)
+        for k in range(100000):  # Play 10 000 000 shoes
+            game = Game(100, 5, True)
+            while len(game.deck) > 15:
+                game.playround()
+            bankrollresult.append(game.bankroll)
+            # print(game.bankroll)
     sys.stdout = sys.__stdout__
+    print("Game finished!")
     print("mean after 10 000 shoes played: %s" % mean(bankrollresult))
     print("stdev: %s" % sqrt(var(bankrollresult)))
     exit()
