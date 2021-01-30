@@ -9,25 +9,28 @@ from hand import Hand
 
 
 class Game:
-    def __init__(self, bankroll, unit, blockstdout):
+    def __init__(self, bankroll, unit, countenable, DAS, blockstdout):
         self.bankroll = bankroll
         self.unit = unit
         self.rc = 0
+        self.countenable = countenable
         self.deck = get_deck(True, 8)
-        self.DAS = True
+        self.DAS = DAS
         self.bet = 0
-        sys.stdout = open(os.devnull, 'w') if blockstdout else sys.__stdout__  # block printing statements
+        self.blockstdout = blockstdout
 
     def getBet(self):
+        if not self.countenable:
+            return self.unit
         if self.rc == 1:
-            return 1*self.unit
+            return 1 * self.unit
         elif self.rc == 2:
-            return 2*self.unit
+            return 2 * self.unit
         elif self.rc == 3:
-            return 4*self.unit
+            return 4 * self.unit
         elif self.rc >= 4:
-            return 8*self.unit
-        return 0
+            return 8 * self.unit
+        return 1 * self.unit
 
     def takeCard(self):
         card = self.deck.pop(0)
@@ -35,13 +38,15 @@ class Game:
         return card
 
     def getAction(self, hand, dealervalue):
-        # if(len(hand.getCards()) == 2 and Card(1) not in hand.getCards() and (hand.getSum() == 16 and dealervalue in
-        # [9, 10, 1] or hand.getSum() == 15 and dealervalue == 10)): return "surrender"
+        if (len(hand.getCards()) == 2 and Card(1) not in hand.getCards() and (hand.getSum() == 16 and dealervalue in
+                                                [9, 10, 1] or hand.getSum() == 15 and dealervalue == 10)):
+            return "surrender"
         if hand.getCards()[0] == hand.getCards()[1]:  # pair splitting
             cardvalue = hand.getCards()[0].bjValue()
             if cardvalue == 1 or cardvalue == 8:
                 return "split"
-            elif (cardvalue == 9 and dealervalue in [2, 3, 4, 5, 6, 8, 9]) or (cardvalue == 7 and 1 < dealervalue < 8) or (
+            elif (cardvalue == 9 and dealervalue in [2, 3, 4, 5, 6, 8, 9]) or (
+                    cardvalue == 7 and 1 < dealervalue < 8) or (
                     cardvalue == 6 and 2 < dealervalue < 7) or (2 <= cardvalue <= 3 and 4 <= dealervalue <= 7):
                 return "split"
             elif (cardvalue == 6 and dealervalue == 2) or (1 < cardvalue < 4 and 1 < dealervalue < 4) or (
@@ -95,7 +100,6 @@ class Game:
                 hand.addCard(self.takeCard())
                 hand.setDouble()
                 self.bankroll -= self.bet
-                # print(hand, hand.getSum())
                 return [hand]
             elif action == "split":
                 hand2 = Hand([hand.takeCard()], self.bet)
@@ -107,18 +111,16 @@ class Game:
                 a = self.playHand(hand, dealercards)
                 # print("play second pair")
                 b = self.playHand(hand2, dealercards)
-                # print("a =",a,"b =",b)
                 a.extend(b)
                 return a
             elif action == "surrender":
                 hand.setSurrender()
                 return [hand]
-            if hand.getSum() >= 21:
-                return [hand]
+
         return [hand]
 
-
     def playround(self):
+        sys.stdout = open(os.devnull, 'w') if self.blockstdout else sys.__stdout__  # block printing statements
         self.bet = self.getBet()
         self.bankroll -= self.bet
         print("rc is %s, i'm betting %s" % (self.rc, self.bet))
@@ -134,7 +136,6 @@ class Game:
         print(dealercards)
         playedhands = self.playHand(playerhands, dealercards)
         print("playedhand:", playedhands)
-        # print("rc: ", self.rc)
 
         while get_cards_sum(dealercards) < 17:  # Dealer keeps hitting until 17 or higher
             print("dealer takes another card:")
@@ -161,6 +162,7 @@ class Game:
         # for card in dealercards:
         #     self.deck.insert(0, card)
         print("##############################################")
+        sys.stdout = sys.__stdout__
 
 
 if __name__ == "__main__":
@@ -168,14 +170,12 @@ if __name__ == "__main__":
     bankrollresult = []
     for i in range(100):
         print(i)
-        for k in range(100000):  # Play 10 000 000 shoes
-            game = Game(100, 5, True)
-            while len(game.deck) > 15:
+        for k in range(10):  # Play 1000 shoes
+            game = Game(bankroll=100, unit=5, countenable=True, DAS=True, blockstdout=True)
+            while len(game.deck) > 20:
                 game.playround()
             bankrollresult.append(game.bankroll)
-            # print(game.bankroll)
-    sys.stdout = sys.__stdout__
-    print("Game finished!")
-    print("mean after 10 000 shoes played: %s" % mean(bankrollresult))
+    print("1000 Shoes finished!")
+    print("mean after 1000 shoes played: %s" % mean(bankrollresult))
     print("stdev: %s" % sqrt(var(bankrollresult)))
     exit()

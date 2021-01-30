@@ -1,8 +1,8 @@
 """
     Implementation for playing cards. Blackjack only cares about the rank and not the suit of a card.
-    Ace represents a 1 or 11
+    Ace represents a 1 or an 11
     Numbers represent their corresponding value
-    Jack, Queen, King represent 10
+    Jack, Queen, King represent a 10
 """
 from random import shuffle
 
