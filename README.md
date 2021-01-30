@@ -7,5 +7,5 @@ Used for risk assesment and optimizing betting strategies.
 run `python3 game.py` for a game with one hand with a random deck, bankroll of €100 and a bet of €5.
 
 ## TODO:
-- [*] Implement true count and running count
-- [] GUI
+- [x] Implement true count and running count
+- [ ] GUI
