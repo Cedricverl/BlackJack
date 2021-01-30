@@ -3,6 +3,7 @@
 """
 from hand import *
 from card import *
+from game import Game
 
 bj0 = Hand([Card(1), Card(10)])
 bj1 = Hand([Card(10), Card(1)])
@@ -57,5 +58,8 @@ assert Card(11).getCount() == -1
 assert Card(12).getCount() == -1
 assert Card(13).getCount() == -1
 assert Card(1).getCount() == -1
+
+g = Game(100, 5, True, True, True)
+assert g.getAction(Hand([Card(7), Card(9)], 5), 10) == "surrender"
 
 exit()

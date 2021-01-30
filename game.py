@@ -170,7 +170,7 @@ if __name__ == "__main__":
     bankrollresult = []
     for i in range(100):
         print(i)
-        for k in range(10):  # Play 1000 shoes
+        for k in range(100000):  # Play 10000000 shoes
             game = Game(bankroll=100, unit=5, countenable=True, DAS=True, blockstdout=True)
             while len(game.deck) > 20:
                 game.playround()
